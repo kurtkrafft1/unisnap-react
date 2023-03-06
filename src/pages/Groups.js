@@ -13,7 +13,7 @@ const Groups = () => {
       setIsLoading(false);
       setGroups(res.data);
     });
-  }, []);
+  }, [api, setIsLoading, setGroups]);
 
   const checkForEmptyGroups = () => {
     if (groups.length === 0) {
@@ -30,7 +30,7 @@ const Groups = () => {
     }
     return groups.map((group) => {
       console.log(group);
-      <Group group={group} />;
+      return <Group group={group} />;
     });
   };
 
