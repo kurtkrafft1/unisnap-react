@@ -12,7 +12,7 @@ export const AuthProvider = ({ children }) => {
     console.log("login", data);
     setAuthToken(data["authentication_token"]);
     setEmail(data["email"]);
-    navigate("/");
+    navigate("/splash");
   };
 
   const logout = () => {

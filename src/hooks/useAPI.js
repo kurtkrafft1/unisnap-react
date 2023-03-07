@@ -8,7 +8,7 @@ let apis = {};
 
 function useAPI(version = 1) {
   const { authToken } = useAuth();
-  const { email } = useLocalStorage("email", null);
+  const [email, setEmail] = useLocalStorage("email", null);
   let baseURL = process.env.REACT_APP_API_BASE_URL + `v${version}/`;
   useEffect(() => {
     if (!authToken) {
@@ -19,6 +19,8 @@ function useAPI(version = 1) {
     baseURL: baseURL,
     headers: {
       "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+      Authorization: `Token token=${authToken}, email=${email}`,
     },
     cache: {
       readHeaders: true,

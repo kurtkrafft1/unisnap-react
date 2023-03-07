@@ -1,17 +1,32 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
+import { slide as Menu } from "react-burger-menu";
 
 const TopBar = () => {
   const { authToken, logout } = useAuth();
   const classes = "flex w-full h-full flex-row justify-between items-center";
   const navigate = useNavigate();
 
-  const returnCorrectLoginLogout = () => {
-    return authToken ? "Logout" : "";
-  };
-  const returnCorrectHighScore = () => {
-    return authToken ? "High Scores" : "";
+  const authedMenu = () => {
+    return authToken ? (
+      <Menu right>
+        <a id="home" className="menu-item" href="/">
+          Home
+        </a>
+        <a id="groups" className="menu-item" href="/groups">
+          Groups
+        </a>
+        <a id="invites" className="menu-item" href="/invites">
+          Invites
+        </a>
+        <a onClick={logoutClicked} className="menu-item--small" href="">
+          Logout
+        </a>
+      </Menu>
+    ) : (
+      ""
+    );
   };
 
   const returnHeaderClasses = () => {
@@ -23,11 +38,7 @@ const TopBar = () => {
     event.preventDefault();
     if (authToken) logout();
   };
-  const highScoresClicked = (event) => {
-    event.preventDefault();
-    if (authToken) navigate("/highscores");
-  };
-  const tapperClicked = (event) => {
+  const unisnapClicked = (event) => {
     event.preventDefault();
     if (authToken) navigate("/");
   };
@@ -35,23 +46,10 @@ const TopBar = () => {
   return (
     <div className="w-full h-20 bg-gray-200 px-4">
       <div className={returnHeaderClasses()}>
-        <button onClick={tapperClicked} className="text-3xl font-bold">
+        <button onClick={unisnapClicked} className="text-3xl font-bold">
           Unisnap
         </button>
-        <div className="flex flex-row">
-          <button
-            className="text-3xl font-bold hover:cursor-pointer mr-4 hover:text-gray-700"
-            onClick={highScoresClicked}
-          >
-            {returnCorrectHighScore()}
-          </button>
-          <button
-            className="text-3xl font-bold hover:cursor-pointer hover:text-gray-700"
-            onClick={logoutClicked}
-          >
-            {returnCorrectLoginLogout()}
-          </button>
-        </div>
+        <div className="">{authedMenu()}</div>
       </div>
     </div>
   );
