@@ -37,7 +37,7 @@ const Groups = () => {
   return (
     <div className="flex flex-col items-center py-4">
       <div className="text-lg">Your Groups</div>
-      <div className="rounded w-full bg-gray-100 min-h-screen flex flex-row flex-wrap justify-evenly p-4">
+      <div className="rounded w-full min-h-screen flex flex-row flex-wrap justify-evenly p-4">
         {isLoading ? <Loader /> : checkForEmptyGroups()}
       </div>
     </div>
